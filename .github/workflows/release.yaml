@@ -1,0 +1,38 @@
+name: Flutter Build Test
+
+on:
+  push:
+    branches: [ main, beta, alpha ]
+  pull_request:
+    branches: [ main, beta, alpha ]
+
+jobs:
+#  build:
+#    name: Build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#      - run: flutter pub get
+#      - run: flutter test
+
+  release:
+    name: Release
+    if: github.ref_name == 'main' || github.ref_name == 'beta' || github.ref_name == 'alpha'
+#    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - run: npm install semantic-release-pub
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

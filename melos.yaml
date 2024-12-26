@@ -1,0 +1,28 @@
+name: flutter_template
+
+packages:
+  - src/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  get:
+    exec: dart pub get .
+  build:
+    run: flutter pub run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+    select-package:
+      depends-on: build_runner
+  watch:
+    run: flutter pub run build_runner watch --delete-conflicting-outputs
+    select-package:
+      depends-on: build_runner
+  analyze:
+    exec: dart analyze .
+  publish:
+    hooks:
+      pre: dart pub run build_runner build
+      post: dart pub run build_runner clean
