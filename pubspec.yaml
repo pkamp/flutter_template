@@ -5,3 +5,11 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies:
   melos: ^6.2.0
+
+scripts:
+  init: bash ./scripts/init.sh
+  $after: melos bs
+  create:
+    app: bash ./scripts/create.sh app
+    package: bash ./scripts/create.sh package
+    $after: melos bs
