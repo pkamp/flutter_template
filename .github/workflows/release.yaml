@@ -24,7 +24,7 @@ jobs:
       run: melos get
 
     - name: Run Flutter Tests
-      run: melos test --machine --coverage > tests.output
+      run: melos test -- --machine --coverage > tests.output
 
     - run: melos analyze
 
