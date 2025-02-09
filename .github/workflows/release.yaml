@@ -2,26 +2,38 @@ name: Flutter Build Test
 
 on:
   push:
-    branches: [ main, beta, alpha ]
   pull_request:
-    branches: [ main, beta, alpha ]
 
 jobs:
-#  build:
-#    name: Build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          channel: stable
-#      - run: flutter pub get
-#      - run: flutter test
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+
+    - name: Install Melos
+      uses: bluefireteam/melos-action@v3
+      with:
+        run-bootstrap: false
+
+    - name: Install Dependencies
+      run: melos get
+
+    - name: Run Flutter Tests
+      run: melos test --machine --coverage > tests.output
+
+    - run: melos analyze
 
   release:
     name: Release
     if: github.ref_name == 'main' || github.ref_name == 'beta' || github.ref_name == 'alpha'
-#    needs: [build]
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
       contents: write
