@@ -1,11 +1,11 @@
 # Flutter Template
 
-## Getting Started
+## Install Tools
 
-- [ ] Replace names in `pubspec.yaml` and `melos.yaml`
-- [ ] Initialize Git Flow
-- [ ] Activate flutter build workflow
-- [ ] Create flutter project in `./src/`
+```
+dart pub global activate rps
+dart pub global activate melos
+```
 
 ## Features
 
