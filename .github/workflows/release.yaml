@@ -43,10 +43,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 20
-
-      - name: Install Melos
-        uses: bluefireteam/melos-action@v3
-
+#
+#      - name: Install Melos
+#        uses: bluefireteam/melos-action@v3
 
       - name: Install Semantic Release Pub
         run: npm install semantic-release-pub
@@ -55,4 +54,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: melos version --all
+#      - run: melos version --all
