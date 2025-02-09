@@ -39,10 +39,20 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v2
         with:
           node-version: 20
-      - run: npm install semantic-release-pub
+
+      - name: Install Melos
+        uses: bluefireteam/melos-action@v3
+
+
+      - name: Install Semantic Release Pub
+        run: npm install semantic-release-pub
+
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: melos version --all
